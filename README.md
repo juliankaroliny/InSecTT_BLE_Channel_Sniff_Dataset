@@ -6,6 +6,10 @@ Since BLE uses channel hopping, not every message is detected if only a single c
 In BLE there are currently two different channel hop algorithms used [1]. The first one is the Channel Selection Algorithm 1 (CSA1), which was released with the first BLE specification, and the second is the Channel Selection Algorithm 2 (CSA2) which was implemented with the BLE version 5.0. This dataset provides measurements with BLE devices using both algorithms placed near the sniffer.
 The goal is to show that even though channel hopping is used, it is possible to reconstruct certain communication parameters and predict future channel access of the BLE connections by only passively listening to the channel.
 
+<p align="center">
+<img src="setup/nrf52840.png" height="25%" width="25%" >
+</p>
+
 This dataset is a work from [Silicon Austria Labs GmbH](https://silicon-austria-labs.com/) (SAL) and the [Institute for Communications Engineering and RF-Systems](https://www.jku.at/en/institute-for-communications-engineering-and-rf-systems/)  (NTHFS) of the Johannes Kepler University (JKU) in Linz for the [InSecTT project](https://www.insectt.eu/).
 
 # Dataset
@@ -15,6 +19,10 @@ This dataset is a work from [Silicon Austria Labs GmbH](https://silicon-austria-
 The measurement setup consists of six Nordic NRF52840 devices that form three BLE connection pairs and an SDR based sniffer. The BLE devices are running the  _heart-rate monitor_  sample of the Zephyr Project [2], modified to allow configuring certain connection parameters like the connection interval and the channel map. As sniffer, we use the _HackRF One_ SDR controlled in GNURadio [3].
 Here we perform a simple filtering and Gaussian Frequency Shift Keying (GFSK) demodulation of the I/Q samples of the received signal and separate the individual BLE connections by their access address. The center frequency of the sniffer is at  2.45 GHz, which corresponds to BLE channel 22. The sniffer is listening to only this channel in close proximity to the BLE devices performing their communication procedure [1] including channel hopping. 
 The measurements are performed in an office environment, and thus in addition to the three BLE connection pairs, other devices are communicating.
+
+<p align="center">
+<img src="setup/setup.png" height="60%" width="60%" >
+</p>
 
 ## BLE Node Configuration
 The initial dataset consists of three measurement sets with different configurations of the individual BLE connection pairs. For the first connection pair, one of the devices uses a BLE version below 5.0 and therefore CSA1 is used, while for the other two connection pairs CSA2 is used. In the following, the configuration of the individual BLE connections for the three datasets is summarized.  For the channel map the hexadecimal representation is used, where the corresponding bit entry is 1 if the channel is used and 0 otherwise.
@@ -51,9 +59,9 @@ For the first two connection pairs no channel map is used in this configuration 
 
 
 ## Structure of Dataset
-Each subfolder in the [dataset](Dataset) folder represents one measurement set for a certain scenario. Each of these sets contains a [metadata.json](dataset/set_1/metadata.json) file containing the access address of the BLE connections, the number of measurements, and the channel the sniffing was performed. 
+Each subfolder in the [dataset](dataset) folder represents one measurement set for a certain scenario. Each of these sets contains a [metadata.json](dataset/set_1/metadata.json) file containing the access address of the BLE connections, the number of measurements, and the channel the sniffing was performed. 
 
-The actual measurement of the sniffer can be found in the [AccessAddress.csv](dataset/set_1/2de79d63.csv) which contains the timestamp of the individual received messages and the corresponding header. 
+The actual measurement of the sniffer can be found in the [AccessAddressX.csv](dataset/set_1/2de79d63.csv) which contains the timestamp of the individual received messages and the corresponding header. 
 
 The raw measurements are also provided in [raw_sniffed_bitstream.dat](dataset/set_1/raw_sniffed_bitstream.dat)
 
@@ -70,7 +78,7 @@ import json
 
 dataset_folder = "dataset/set_1"
 
-# Load the metadate of the dataset
+# Load the metadata of the dataset
 with open(f"{dataset_folder}/metadata.json", 'r') as fp:
     metadata = json.load(fp)
  
