@@ -59,11 +59,11 @@ For the first two connection pairs no channel map is used in this configuration 
 
 
 ## Structure of Dataset
-Each subfolder in the [dataset](dataset) folder represents one measurement set for a certain scenario. Each of these sets contains a [metadata.json](dataset/set_1/metadata.json) file containing the access address of the BLE connections, the number of measurements, and the channel the sniffing was performed. 
+Each subfolder in the [dataset](dataset_hackrf) folder represents one measurement set for a certain scenario. Each of these sets contains a [metadata.json](dataset_hackrf/set_1/metadata.json) file containing the access address of the BLE connections, the number of measurements, and the channel the sniffing was performed. 
 
-The actual measurement of the sniffer can be found in the [AccessAddressX.csv](dataset/set_1/2de79d63.csv) which contains the timestamp of the individual received messages and the corresponding header. 
+The actual measurement of the sniffer can be found in the [AccessAddressX.csv](dataset_hackrf/set_1/2de79d63.csv) which contains the timestamp of the individual received messages and the corresponding header. 
 
-The raw measurements are also provided in [raw_sniffed_bitstream.dat](dataset/set_1/raw_sniffed_bitstream.dat)
+The raw measurements are also provided in [raw_sniffed_bitstream.dat](dataset_hackrf/set_1/raw_sniffed_bitstream.dat)
 
 
 ## Loading the Dataset
@@ -76,7 +76,7 @@ import pandas as pd
 import numpy as np
 import json
 
-dataset_folder = "dataset/set_1"
+dataset_folder = "dataset_hackrf/set_1"
 
 # Load the metadata of the dataset
 with open(f"{dataset_folder}/metadata.json", 'r') as fp:
