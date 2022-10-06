@@ -1,10 +1,10 @@
 # InSecTT BLE Channel Sniff Dataset
 
-This dataset provides Bluetooth Low Energy (BLE) measurements where a single BLE channel is observed with a Software Defined Radio (SDR) in close proximity to several BLE devices. 
-Since BLE uses channel hopping, not every message is detected if only a single channel is observed. In general, we do not know the access address, the connection interval, or the hopping pattern of the connections [1]. This measurement set provides raw filtered and GFSK demodulated I/Q samples of the received BLE messages, as well as the already extracted measurements for the observed BLE connections including the header and measured timestamp. For each measurement set, we provide metadata with information about the BLE devices that are part of the setup.
+This dataset provides Bluetooth Low Energy (BLE) measurements for a single BLE channel, observed with a Software Defined Radio (SDR) in close proximity to several BLE devices. 
+Since BLE uses channel hopping, not every message is detected if only a single channel is observed. In general, we do not know the access address, the connection interval, or the hopping pattern of the connections [1]. This measurement set provides the raw bitstream of the received BLE messages, as well as the already extracted measurements of the BLE connections including the header and measured timestamp. For each measurement set, we provide metadata with information about the BLE devices that are part of the setup.
 
-In BLE there are currently two different channel hop algorithms used [1]. The first one is the Channel Selection Algorithm 1 (CSA1), which was released with the first BLE specification, and the second is the Channel Selection Algorithm 2 (CSA2) which was implemented with the BLE version 5.0. This dataset provides measurements with BLE devices using both algorithms placed near the sniffer.
-The goal is to show that even though channel hopping is used, it is possible to reconstruct certain communication parameters and predict future channel access of the BLE connections by only passively listening to the channel.
+In BLE there are currently two different channel hop algorithms used [1]. The first one is the Channel Selection Algorithm 1 (CSA1), which was released with the first BLE specification, and the second is the Channel Selection Algorithm 2 (CSA2) which was implemented with the BLE version 5.0. This dataset provides measurements with BLE devices using both algorithms.
+The intention of this dataset, is to show that even though channel hopping is used, it is possible to reconstruct certain communication parameters and predict future channel access of the BLE connections by only passively listening to the channel.
 
 <p align="center">
 <img src="setup/nrf52840.png" height="25%" width="25%" >
@@ -16,9 +16,12 @@ This dataset is a work from [Silicon Austria Labs GmbH](https://silicon-austria-
 
 ## Measurement Setup
 
-The measurement setup consists of six Nordic NRF52840 devices that form three BLE connection pairs and an SDR based sniffer. The BLE devices are running the  _heart-rate monitor_  sample of the Zephyr Project [2], modified to allow configuring certain connection parameters like the connection interval and the channel map. As sniffer, we use the _HackRF One_ SDR controlled in GNURadio [3].
-Here we perform a simple filtering and Gaussian Frequency Shift Keying (GFSK) demodulation of the I/Q samples of the received signal and separate the individual BLE connections by their access address. The center frequency of the sniffer is at  2.45 GHz, which corresponds to BLE channel 22. The sniffer is listening to only this channel in close proximity to the BLE devices performing their communication procedure [1] including channel hopping. 
-The measurements are performed in an office environment, and thus in addition to the three BLE connection pairs, other devices are communicating.
+The measurement setup consists of six Nordic NRF52840 devices that form three BLE connection pairs and as sniffer two different approaches are used. The BLE devices are running the  _heart-rate monitor_  sample of the Zephyr Project [2], modified to allow configuring certain connection parameters like the connection interval and the channel map. The center frequency of the sniffers is at  2.45 GHz, which corresponds to BLE channel 22. The sniffers are listening to only this channel in close proximity to the BLE devices performing their communication procedure [1] including channel hopping. The measurements are performed in an office environment, and thus in addition to the three BLE connection pairs, other devices are communicating. The two sniffer types were used seperately, i.e. they do not contain the same measurement runs.
+
+For the first sniffer, we use the _HackRF One_ SDR controlled in GNURadio [3]. Here we perform a simple filtering and Gaussian Frequency Shift Keying (GFSK) demodulation of the I/Q samples of the received signal and separate the individual BLE connections by their access address. The corresponding measurements can be found in [dataset_hackrf](dataset_hackrf).
+
+For the second sniffer we use the _Ubertooth One_ were collect the raw channel measurements using the _ubertooth-dump_ function. The corresponding measurements can be found in [dataset_ubertooth](dataset_ubertooth).
+
 
 <p align="center">
 <img src="setup/setup.png" height="60%" width="60%" >
