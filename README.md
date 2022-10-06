@@ -20,7 +20,7 @@ The measurement setup consists of six Nordic NRF52840 devices that form three BL
 
 For the first sniffer, we use the _HackRF One_ SDR controlled in GNURadio [3]. Here we perform a simple filtering and Gaussian Frequency Shift Keying (GFSK) demodulation of the I/Q samples of the received signal and separate the individual BLE connections by their access address. The corresponding measurements can be found in [dataset_hackrf](dataset_hackrf).
 
-For the second sniffer we use the _Ubertooth One_ were collect the raw channel measurements using the _ubertooth-dump_ function. The corresponding measurements can be found in [dataset_ubertooth](dataset_ubertooth).
+For the second sniffer, we use the _Ubertooth One_ were we collect the raw channel measurements using the _ubertooth-dump_ function. The corresponding measurements can be found in [dataset_ubertooth](dataset_ubertooth).
 
 
 <p align="center">
@@ -62,11 +62,11 @@ For the first two connection pairs no channel map is used in this configuration 
 
 
 ## Structure of Dataset
-Each subfolder in the [dataset](dataset_hackrf) folder represents one measurement set for a certain scenario. Each of these sets contains a [metadata.json](dataset_hackrf/set_1/metadata.json) file containing the access address of the BLE connections, the number of measurements, and the channel the sniffing was performed. 
+Each subfolder in the [dataset](dataset_ubertooth) folder represents one measurement set for a certain scenario. Each of these sets contains a [metadata.json](dataset_ubertooth/set_1/metadata.json) file containing the access address of the BLE connections, the number of measurements, and the channel the sniffing was performed. 
 
-The actual measurement of the sniffer can be found in the [AccessAddressX.csv](dataset_hackrf/set_1/2de79d63.csv) which contains the timestamp of the individual received messages and the corresponding header. 
+The actual measurement of the sniffer can be found in the [AccessAddressX.csv](dataset_ubertooth/set_1/481ad7d7.csv) which contains the timestamp of the individual received messages and the corresponding header. 
 
-The raw measurements are also provided in [raw_sniffed_bitstream.dat](dataset_hackrf/set_1/raw_sniffed_bitstream.dat)
+The raw measurements are also provided in [raw_sniffed_bitstream.dat](dataset_ubertooth/set_1/raw_sniffed_bitstream.dat)
 
 
 ## Loading the Dataset
@@ -79,7 +79,7 @@ import pandas as pd
 import numpy as np
 import json
 
-dataset_folder = "dataset_hackrf/set_1"
+dataset_folder = "dataset_ubertooth/set_1"
 
 # Load the metadata of the dataset
 with open(f"{dataset_folder}/metadata.json", 'r') as fp:
